@@ -41,6 +41,8 @@ describe('Product API Tests', () => {
     describe('PUT /products/:id', () => {
         it('should update an existing product', async () => {
             const upid = 1;
+            const uanme = 'MacBook'
+
             const res = await request(app)
                 .put(`/products/${upid}`)
                 .send({
@@ -49,6 +51,21 @@ describe('Product API Tests', () => {
             expect(res.status).toBe(200);
             expect(res.body).toHaveProperty('stock',100);
         });
+
+        it('should update an existing product Name', async () => {
+            const upid = 1;
+            const uname = 'MacBook'
+
+            const res = await request(app)
+                .put(`/products/${upid}`)
+                .send({
+                    name: uname
+                });
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveProperty('name', uname);
+        });
+
+
         it('should return 404 if product not found', async () => {
             const upid = 50;
             const res = await request(app)
